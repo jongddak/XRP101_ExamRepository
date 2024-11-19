@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PopupController : MonoBehaviour
 {
     [SerializeField] private float _deactiveTime;
-    private WaitForSeconds _wait;
+    private WaitForSecondsRealtime _wait;   // 타임스케일을 0으로 하면 코루틴이 정지됨 리얼타임으로 바꿔줌 
     private Button _popupButton;
 
     [SerializeField] private GameObject _popup;
@@ -18,7 +18,7 @@ public class PopupController : MonoBehaviour
 
     private void Init()
     {
-        _wait = new WaitForSeconds(_deactiveTime);
+        _wait = new WaitForSecondsRealtime(_deactiveTime);
         _popupButton = GetComponent<Button>();
         SubscribeEvent();
     }
@@ -38,6 +38,7 @@ public class PopupController : MonoBehaviour
     private void Deactivate()
     {
         _popup.gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     private IEnumerator DeactivateRoutine()
