@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward, Color.red); // 레이 확인용 
         Move();
         Fire();
     }
@@ -37,9 +39,11 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
+        
         if (Input.GetMouseButtonDown(0))
         {
-            _gun.Fire(_muzzlePoint);    
+            Debug.Log("발사");
+            _gun.Fire();    
         }
     }
 
