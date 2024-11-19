@@ -43,21 +43,10 @@ public class StateAttack : PlayerState
             );
 
         IDamagable damagable;
-        foreach (Collider col in cols)   // 데미지를 입힌 후 idle로 안돌아옴 
+        foreach (Collider col in cols)
         {
-
             damagable = col.GetComponent<IDamagable>();
-
-            if (damagable != null)  // null 체크 추가
-            {
-                damagable.TakeHit(Controller.AttackValue);
-            }
-            else 
-            {
-                
-            }
-            
-
+            damagable.TakeHit(Controller.AttackValue);
         }
     }
 
