@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BulletController : PooledBehaviour
@@ -26,9 +27,10 @@ public class BulletController : PooledBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other
-                .GetComponent<PlayerController>()
-                .TakeHit(_damageValue);
+            Debug.Log("플레이어랑 부딫힘");
+            PlayerController player = other.GetComponent<PlayerController>();
+                
+            player.TakeHit(_damageValue);   // 플레이어 컨트롤러 컴포넌트가 적용된 오브젝트에 콜라이더가 없어서 호출이 안됐었음
         }
     }
 
@@ -38,9 +40,14 @@ public class BulletController : PooledBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
     
-    private void Fire()
+    private void Fire(Transform target)
     {
-        _rigidbody.AddForce(transform.forward * _force, ForceMode.Impulse);
+        
+        Vector3 direction = (target.position - transform.position).normalized;
+
+       
+        _rigidbody.velocity = Vector3.zero; 
+        _rigidbody.AddForce(direction * _force, ForceMode.Impulse);
     }
 
     private IEnumerator DeactivateRoutine()
@@ -59,7 +66,10 @@ public class BulletController : PooledBehaviour
     {
         if (!(t is Transform)) return;
         
-        transform.LookAt((t as Transform));
-        Fire();
+        Transform tar = t as Transform;   // 방향이 부정확함 
+
+        Fire(tar);
+
+
     }
 }
