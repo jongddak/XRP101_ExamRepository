@@ -37,7 +37,7 @@ public class StateMachine
 
     public void ChangeState(StateType state)
     {
-        CurrentState.Exit();
+       // CurrentState.Exit();  exit 중복 호출로 스택오버플로우 
         CurrentType = state;
         CurrentState.Enter();
     }
