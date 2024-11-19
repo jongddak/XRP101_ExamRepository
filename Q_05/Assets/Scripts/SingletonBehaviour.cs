@@ -5,7 +5,7 @@ using UnityEngine;
 public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
-    public static T Intance
+    public static T Intance 
     {
         get
         {
@@ -20,7 +20,10 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 
     protected void SingletonInit()
     {
-        _instance = GetComponent<T>();
-        DontDestroyOnLoad(gameObject);
+        if (_instance == null)  // 게임매니저가 있으면 재생성 하지않게 코드변경 
+        {
+            _instance = GetComponent<T>();
+            DontDestroyOnLoad(gameObject);
+        }
     }
 }
