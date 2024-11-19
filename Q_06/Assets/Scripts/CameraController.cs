@@ -24,9 +24,9 @@ public class CameraController : MonoBehaviour
     {
         if (!_hasFollowTarget) return;
 
-        _followTarget.SetPositionAndRotation(
-            transform.position,
-            transform.rotation
+        transform.SetPositionAndRotation(   //플레이어의 포지션과 로테이션을 카메라에 전달해야하는데 반대로 되어있었음 
+            _followTarget.position,
+            _followTarget.rotation
             );
     }
 }
